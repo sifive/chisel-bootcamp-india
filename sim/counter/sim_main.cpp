@@ -24,6 +24,7 @@ double sc_time_stamp() {
 
 int main(int argc, char** argv, char** env) {
     // This is a more complicated example, please also see the simpler examples/hello_world_c.
+    int clk,i;
 
     // Prevent unused variable warnings
     if (0 && argc && argv && env) {}
@@ -62,32 +63,47 @@ int main(int argc, char** argv, char** env) {
     top->clock = 0;
     top->reset = 0;
 
-    // Simulate until $finish
-    while (!Verilated::gotFinish()) {
-        main_time++;  // Time passes...
+    // Run the simulation for 1000 clocks
+	  for (i=0; i<1000; i++) {
+		 top->reset = (i < 2);
+		 // dump variables into VCD file and toggle clock
+		 for (clk=0; clk<2; clk++) {
+			tfp->dump (2*i+clk);
+			top->clock = !top->clock;
+			top->eval ();
+		 }
+// 		 top->cen = (i > 5);
+// 		 top->wen = (i == 10);
+		 if (Verilated::gotFinish())  exit(0);
+	  }
+	  tfp->close();
+	  exit(0);
+//     // Simulate until $finish
+//     while (!Verilated::gotFinish()) {
+//         main_time++;  // Time passes...
+// 
+//         // Toggle clocks and such
+//         top->clock = !top->clock;
+//         if (main_time > 4 && main_time < 6) {
+//             top->reset = !1;  // Assert reset
+//         } else {
+//             top->reset = !0;  // Deassert reset
+//         }
+// 
+//         // Evaluate model
+//         top->eval();
 
-        // Toggle clocks and such
-        top->clock = !top->clock;
-        if (main_time > 4 && main_time < 6) {
-            top->reset = !1;  // Assert reset
-        } else {
-            top->reset = !0;  // Deassert reset
-        }
-
-        // Evaluate model
-        top->eval();
-
-#if VM_TRACE
-        // Dump trace data for this cycle
-        if (tfp) tfp->dump (main_time);
-#endif
+// #if VM_TRACE
+//         // Dump trace data for this cycle
+//         if (tfp) tfp->dump (main_time);
+// #endif
 
         // Read outputs
 //         VL_PRINTF ("[%" VL_PRI64 "d] clk=%x rstl=%x iquad=%" VL_PRI64 "x"
 //                    " -> oquad=%" VL_PRI64"x owide=%x_%08x_%08x\n",
 //                    main_time, top->clk, top->reset_l, top->in_quad,
 //                    top->out_quad, top->out_wide[2], top->out_wide[1], top->out_wide[0]);
-    }
+//     }
 
     // Final model cleanup
     top->final();
@@ -97,11 +113,11 @@ int main(int argc, char** argv, char** env) {
     if (tfp) { tfp->close(); tfp = NULL; }
 #endif
 
-    //  Coverage analysis (since test passed)
-#if VM_COVERAGE
-    Verilated::mkdir("logs");
-    VerilatedCov::write("logs/coverage.dat");
-#endif
+//     //  Coverage analysis (since test passed)
+// #if VM_COVERAGE
+//     Verilated::mkdir("logs");
+//     VerilatedCov::write("logs/coverage.dat");
+// #endif
 
     // Destroy model
     delete top; top = NULL;

@@ -1,11 +1,11 @@
-// DESCRIPTION: Verilator: Verilog example module
-//
-// This file ONLY is placed into the Public Domain, for any use,
-// without warranty, 2003 by Wilson Snyder.
-// ======================================================================
 
-// This is intended to be a complex example of several features, please also
-// see the simpler examples/hello_world_c.
+
+`define RANDOMIZE_MEM_INIT
+`define RANDOMIZE_REG_INIT
+`define RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE_DELAY=2
+
 
 `timescale 1ns/1ns
 module top (
@@ -13,9 +13,10 @@ module top (
       input reset
   );
 
-initial begin
-//     repeat(100)@(posedge clock);
-    $finish;
-end
+  Counter i_Counter (
+         .clock (clock)
+        ,.reset (reset)
+        ,.io_pulse_out ()
+        );
 
 endmodule

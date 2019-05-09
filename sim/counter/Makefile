@@ -61,7 +61,7 @@ run:
 
 	@echo
 	@echo "-- VERILATE ----------------"
-	$(VERILATOR) $(VERILATOR_FLAGS) -f input.vc top.v sim_main.cpp
+	$(VERILATOR) $(VERILATOR_FLAGS) -f input.vc top.v Counter.v sim_main.cpp
 
 	@echo
 	@echo "-- COMPILE -----------------"
@@ -75,9 +75,9 @@ run:
 	@mkdir -p logs
 	obj_dir/Vtop +trace
 
-	@echo
-	@echo "-- COVERAGE ----------------"
-	$(VERILATOR_COVERAGE) --annotate logs/annotated logs/coverage.dat
+# 	@echo
+# 	@echo "-- COVERAGE ----------------"
+# 	$(VERILATOR_COVERAGE) --annotate logs/annotated logs/coverage.dat
 
 	@echo
 	@echo "-- DONE --------------------"
