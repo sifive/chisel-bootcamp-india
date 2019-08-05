@@ -3,7 +3,7 @@ package examples
 
 import chisel3._
 import chisel3.iotesters.{ChiselFlatSpec, OrderedDecoupledHWIOTester}
-
+/*
 class RouterUnitTester(number_of_packets_to_send: Int) extends OrderedDecoupledHWIOTester {
   val device_under_test = Module(new Router)
   val c: Router = device_under_test
@@ -75,3 +75,5 @@ class RouterTests extends ChiselFlatSpec {
     }
   }
 }
+
+*/
