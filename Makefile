@@ -1,3 +1,3 @@
 
 clean : 
-	rm -rf *.v *.json *fir target project
+	rm -rf target project test_run_dir
