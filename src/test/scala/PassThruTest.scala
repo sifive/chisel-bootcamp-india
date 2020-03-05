@@ -11,7 +11,7 @@ class PassThruTest extends FlatSpec with ChiselScalatestTester {
   behavior of "PassThru Block" 
 
   it should "work as expected" in {
-    test(new PassThru).withAnnotations(Seq(VerilatorBackendAnnotation,WriteVcdAnnotation)) { c =>
+    test(new PassThru(4)).withAnnotations(Seq(VerilatorBackendAnnotation,WriteVcdAnnotation)) { c =>
       c.in.poke(4.U)
       c.clock.step(10)
       c.out.expect(4.U)
@@ -19,7 +19,7 @@ class PassThruTest extends FlatSpec with ChiselScalatestTester {
   }
 
   it should "Fail" in {
-    test(new PassThru).withAnnotations(Seq(VerilatorBackendAnnotation,WriteVcdAnnotation)) { c =>
+    test(new PassThru(4)).withAnnotations(Seq(VerilatorBackendAnnotation,WriteVcdAnnotation)) { c =>
       c.in.poke(4.U)
       c.clock.step(10)
       c.out.expect(4.U, "Expecting 2")
