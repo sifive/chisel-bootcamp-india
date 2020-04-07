@@ -1,0 +1,25 @@
+
+Contents to be covered
+
+- Go detailed on Reg, RegInit, RegNext
+- Control Statement 
+- Covered the state machines
+
+
+# Things to cover further
+
+- Parameters using case class
+	- Option in IO Port and Logic
+	- match/case class	
+
+- Decoupled Interface
+
+- Generators and Collections/ Higher order functions / Functional Programming
+	- FIR Filter with functional programming ; Generators and Collections
+	https://github.com/freechipsproject/chisel-bootcamp/blob/master/2.5_exercise.ipynb
+
+	- Project with AXISteaming Node for the FirFilter Streaming node
+
+Object Oriented Programming
+	- Inheritance, Adding traits
+
